@@ -17,10 +17,12 @@ async function loadData(){
   			cell3 = row.insertCell(2);
 			cell1.innerText = c;
   			cell2.innerText = assoc[jsonObj.data[i].attributes.user];
+			if(cell2.innerText == "undefined"){
+				console.log(jsonObj.data[i].attributes.user);
+			}
   			cell3.innerText = jsonObj.data[i].attributes.rice;
 		}
 	}
 	document.getElementById('load').classList.add('hide');
-	document.getElementById('lead').classList.remove('hide');
 }
 loadData();
