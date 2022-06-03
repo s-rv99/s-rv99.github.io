@@ -7,3 +7,10 @@ main{
 .lcard{
     width: fit-content;
 }
+.freerice-bg{
+    background-color: #2AB3C6;
+    border-color: #1CABBF;
+}
+.banano-bg{
+    background-color: #FBDD11;
+}
