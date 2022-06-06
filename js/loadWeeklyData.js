@@ -12,7 +12,7 @@ async function loadData(){
 	jsonSnapshot = await r.json();
 	document.getElementById('l4').innerText = "✔";
 	startdate = new Date(Number(jsonSnapshot.time));
-	document.getElementById('startdate').innerText = startdate.getFullYear() + "-" + startdate.getMonth() + "-" + startdate.getDate();
+	document.getElementById('startdate').innerText = startdate.getFullYear() + "-" + (startdate.getMonth()+1) + "-" + startdate.getDate();
 	c = 0;
 	total = 0;
 	for(let p = 1; p <= pages; p++){
