@@ -23,19 +23,34 @@ async function loadData(){
 				try{
 					diff = jsonObj.data[i].attributes.rice - jsonSnapshot.data[jsonObj.data[i].attributes.user].rice;
 				}catch{
-					break;
+					diff = jsonObj.data[i].attributes.rice;
 				}
 				if(diff > 0){
 					row = table.insertRow(c++);
 					cell1 = row.insertCell(0);
+					cell1.style.backgroundColor  = "#EA9999";
   					cell2 = row.insertCell(1);
+  					cell2.style.backgroundColor  = "#F9CB9C";
   					cell3 = row.insertCell(2);
+  					cell3.style.backgroundColor  = "#FFE599";
+  					cell4 = row.insertCell(3);
+  					cell4.style.backgroundColor  = "#B6D7A8";
+  					cell5 = row.insertCell(4);
+  					cell5.style.backgroundColor  = "#A4C2F4";
+  					cell6 = row.insertCell(5);
+  					cell6.style.backgroundColor  = "#B4A7D6";
 					cell1.innerText = c;
   					cell2.innerText = assoc[jsonObj.data[i].attributes.user];
 					if(cell2.innerText == "undefined"){
 						console.log(jsonObj.data[i].attributes.user);
 					}
-  					cell3.innerText = diff;
+					try{
+						cell3.innerText = jsonSnapshot.data[jsonObj.data[i].attributes.user].rice;
+					}catch{
+						cell3.innerText = 0;
+					}
+					cell4.innerText = jsonObj.data[i].attributes.rice;
+  					cell5.innerText = diff;
 					total += diff;
 				}
 			}
@@ -43,9 +58,19 @@ async function loadData(){
 	}
 	row = footer.insertRow(0);
 	cell1 = row.insertCell(0);
+	cell1.style.backgroundColor  = "#E06666";
   	cell2 = row.insertCell(1);
+  	cell2.style.backgroundColor  = "#F6B26B";
   	cell3 = row.insertCell(2);
-	cell3.innerText = total;
+  	cell3.style.backgroundColor  = "#FFD966";
+  	cell4 = row.insertCell(3);
+  	cell4.style.backgroundColor  = "#93C47D";
+  	cell5 = row.insertCell(4);
+  	cell5.style.backgroundColor  = "#6D9EEB";
+  	cell6 = row.insertCell(5);
+  	cell6.style.backgroundColor  = "#8E7CC3";
+	cell5.innerText = total;
+	cell6.innerText = "100%";
 	document.getElementById('load').classList.add('hide');
 	document.getElementById('tab').classList.remove('hide');
 }
