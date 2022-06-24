@@ -13,6 +13,9 @@ async function loadData(){
 	document.getElementById('l4').innerText = "✔";
 	c = 0;
 	total = 0;
+	newp = 0;
+	tots = 0;
+	totc = 0;
 	for(let p = 1; p <= pages; p++){
 		r = await fetch("https://engine.freerice.com/group-members?_format=json&group=57a09e6b-505f-4192-95d5-d214e139fe9f&current=" + p + "&limit=50",{method:"GET"});
 		jsonObj = await r.json();
@@ -22,8 +25,11 @@ async function loadData(){
 			if(!jsonCheat.cheaters.includes(jsonObj.data[i].attributes.user)){
 				try{
 					diff = jsonObj.data[i].attributes.rice - jsonSnapshot.data[jsonObj.data[i].attributes.user].rice;
+					totc = totc + jsonObj.data[i].attributes.rice;
+					tots = tots + Number(jsonSnapshot.data[jsonObj.data[i].attributes.user].rice);
 				}catch{
 					diff = jsonObj.data[i].attributes.rice;
+					totc = totc + jsonObj.data[i].attributes.rice;
 				}
 				if(diff > 0){
 					row = table.insertRow(c++);
@@ -48,6 +54,7 @@ async function loadData(){
 						cell3.innerText = jsonSnapshot.data[jsonObj.data[i].attributes.user].rice;
 					}catch{
 						cell3.innerText = 0;
+						newp = newp + 1;
 					}
 					cell4.innerText = jsonObj.data[i].attributes.rice;
   					cell5.innerText = diff;
@@ -69,9 +76,14 @@ async function loadData(){
   	cell5.style.backgroundColor  = "#6D9EEB";
   	cell6 = row.insertCell(5);
   	cell6.style.backgroundColor  = "#8E7CC3";
+	cell3.innerText = tots;
+	cell4.innerText = totc;
 	cell5.innerText = total;
 	cell6.innerText = "100%";
 	document.getElementById('load').classList.add('hide');
 	document.getElementById('tab').classList.remove('hide');
+	document.getElementById('totp').innerText = c;
+	document.getElementById('newp').innerText = newp;
+	document.getElementById('totr').innerText = total;
 }
 loadData();
