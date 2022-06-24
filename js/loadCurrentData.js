@@ -13,16 +13,20 @@ async function loadData(){
 	document.getElementById('l4').innerText = "✔";
 	c = 0;
 	total = 0;
-	newp = 0;
 	tots = 0;
 	totc = 0;
+	uids = []
+	unms = []
+	rss = []
+	rcs = []
+	dfs = []
 	for(let p = 1; p <= pages; p++){
 		r = await fetch("https://engine.freerice.com/group-members?_format=json&group=57a09e6b-505f-4192-95d5-d214e139fe9f&current=" + p + "&limit=50",{method:"GET"});
 		jsonObj = await r.json();
 		pages = jsonObj.meta.pagination.total_pages;
 		document.getElementById('l3').innerText = p + "/" + pages;
 		for(let i = 0; i < jsonObj.meta.pagination.count; i++){
-			if(!jsonCheat.cheaters.includes(jsonObj.data[i].attributes.user)){
+			if(!jsonCheat.cheaters.includes(jsonObj.data[i].attributes.user) && !uids.includes(jsonObj.data[i].attributes.user)){
 				try{
 					diff = jsonObj.data[i].attributes.rice - jsonSnapshot.data[jsonObj.data[i].attributes.user].rice;
 					totc = totc + jsonObj.data[i].attributes.rice;
@@ -32,32 +36,18 @@ async function loadData(){
 					totc = totc + jsonObj.data[i].attributes.rice;
 				}
 				if(diff > 0){
-					row = table.insertRow(c++);
-					cell1 = row.insertCell(0);
-					cell1.style.backgroundColor  = "#EA9999";
-  					cell2 = row.insertCell(1);
-  					cell2.style.backgroundColor  = "#F9CB9C";
-  					cell3 = row.insertCell(2);
-  					cell3.style.backgroundColor  = "#FFE599";
-  					cell4 = row.insertCell(3);
-  					cell4.style.backgroundColor  = "#B6D7A8";
-  					cell5 = row.insertCell(4);
-  					cell5.style.backgroundColor  = "#A4C2F4";
-  					cell6 = row.insertCell(5);
-  					cell6.style.backgroundColor  = "#B4A7D6";
-					cell1.innerText = c;
-  					cell2.innerText = assoc[jsonObj.data[i].attributes.user];
-					if(cell2.innerText == "undefined"){
+					try{
+						rss.push(Number(jsonSnapshot.data[jsonObj.data[i].attributes.user].rice));
+					}catch{
+						rss.push(0);
+					}
+					dfs.push(diff)
+					rcs.push(jsonObj.data[i].attributes.rice)
+					uids.push(jsonObj.data[i].attributes.user);
+					unms.push(assoc[jsonObj.data[i].attributes.user]);
+					if(assoc[jsonObj.data[i].attributes.user] == "undefined"){
 						console.log(jsonObj.data[i].attributes.user);
 					}
-					try{
-						cell3.innerText = jsonSnapshot.data[jsonObj.data[i].attributes.user].rice;
-					}catch{
-						cell3.innerText = 0;
-						newp = newp + 1;
-					}
-					cell4.innerText = jsonObj.data[i].attributes.rice;
-  					cell5.innerText = diff;
 					total += diff;
 				}
 			}
@@ -82,8 +72,49 @@ async function loadData(){
 	cell6.innerText = "100%";
 	document.getElementById('load').classList.add('hide');
 	document.getElementById('tab').classList.remove('hide');
-	document.getElementById('totp').innerText = c;
-	document.getElementById('newp').innerText = newp;
 	document.getElementById('totr').innerText = total;
+	console.log(unms)
+	console.log(rss)
+	console.log(rcs)
+	console.log(dfs)
+	l = dfs.length;
+	newp = 0;
+	for(i=0; i < l; i++){
+		max = -1;
+		for(ii=0; ii < dfs.length; ii++){
+			if(dfs[ii] > max){
+				max = dfs[ii];
+			}
+		}
+		index = dfs.indexOf(max);
+		row = table.insertRow(i);
+		cell1 = row.insertCell(0);
+		cell1.style.backgroundColor  = "#EA9999";
+		cell1.innerText = i+1;
+  		cell2 = row.insertCell(1);
+  		cell2.style.backgroundColor  = "#F9CB9C";
+		cell2.innerText = unms[index];
+  		cell3 = row.insertCell(2);
+  		cell3.style.backgroundColor  = "#FFE599";
+		cell3.innerText = rss[index];
+		if(rss[index] == 0){
+			newp = newp + 1;
+		}
+  		cell4 = row.insertCell(3);
+  		cell4.style.backgroundColor  = "#B6D7A8";
+		cell4.innerText = rcs[index];
+  		cell5 = row.insertCell(4);
+  		cell5.style.backgroundColor  = "#A4C2F4";
+		cell5.innerText = dfs[index];
+  		cell6 = row.insertCell(5);
+  		cell6.style.backgroundColor  = "#B4A7D6";
+		cell6.innerText = (((dfs[index])/total)*100).toFixed(2) + " %";
+		unms.splice(index,1);
+		rss.splice(index,1);
+		rcs.splice(index,1);
+		dfs.splice(index,1);
+	}
+	document.getElementById('newp').innerText = newp;
+	document.getElementById('totp').innerText = l;
 }
 loadData();
