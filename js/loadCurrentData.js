@@ -73,10 +73,6 @@ async function loadData(){
 	document.getElementById('load').classList.add('hide');
 	document.getElementById('tab').classList.remove('hide');
 	document.getElementById('totr').innerText = total;
-	console.log(unms)
-	console.log(rss)
-	console.log(rcs)
-	console.log(dfs)
 	l = dfs.length;
 	newp = 0;
 	for(i=0; i < l; i++){
