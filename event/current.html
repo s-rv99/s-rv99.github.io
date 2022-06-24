@@ -45,7 +45,7 @@
 		</header>
 	<main class="container">
         <h1 class="mt-2 text-center">Freerice Event #6.9 - GayRice</h1>
-		<h3 class="text-center">Stats</h3>
+		<h3 class="text-center">Info</h3>
 		<table class="table table-borderless text-center align-middle mb-2">
 			<tbody>
 				<tr>
@@ -60,10 +60,25 @@
 					<td>Sign up form: <a href="https://forms.gle/LKDTcLzXGm2Mx62r5" target="_blank" rel="noreferrer noopener">link</a></td>
 					<td>BAN donation wallet: <a href="https://creeper.banano.cc/account/ban_1ricex9kie3if1qros9s84joa6hnqd97nqc9fo58ca4ro3b1hnpyujjixoyt" target="_blank" rel="noreferrer noopener">link</a></td>
 				</tr>
+				<tr>
+                    <td colspan="2">Current BAN prize pot: <span id="balance">?</span> BAN</td>
+                </tr>
 			</tbody>
 		</table>
 		<h3 class="text-center">Leaderboard</h3>
-		<div class="table-responsive">
+		<div class="px-3" id="load">
+			<div class="card mx-auto lcard mt-3">
+				<div class="card-body">
+					<h2 class="card-title text-black text-center">Loading data ...</h2>
+					<p class="card-text text-dark text-center fs-5">This may take some time</p>
+					<p class="card-text mb-2 text-dark">Loading userID-username associations <span id="l1"></span></p>
+					<p class="card-text mb-2 text-dark">Loading blacklist <span id="l2"></span></p>
+					<p class="card-text mb-2 text-dark">Loading start snapshot <span id="l4"></span></p>
+					<p class="card-text mb-2 text-dark">Loading r/banano leaderboard data: <span id="l3">0/0</span></p>
+				</div>
+			</div>
+		</div>
+		<div class="table-responsive hide" id="tab">
         <table class="table align-middle text-center mb-4">
 			<thead>
 				<tr>
@@ -72,13 +87,15 @@
 					<th scope="col">Rice</th>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody id="b">
 			</tbody>
-			<tfoot>
+			<tfoot id="f">
 			</tfoot>
 		</table>
 		</div>
     </main>
     <script src="../js/bootstrap.bundle.min.js"></script>
+    <script src="../js/loadCurrentBalance.js"></script>
+    <script src="../js/loadCurrentData.js"></script>
 </body>
 </html>
