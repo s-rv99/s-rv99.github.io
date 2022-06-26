@@ -69,7 +69,7 @@ async function loadData(){
 	cell3.innerText = tots;
 	cell4.innerText = totc;
 	cell5.innerText = total;
-	cell6.innerText = "100%";
+	cell6.innerText = (total/6240).toFixed(2);
 	document.getElementById('load').classList.add('hide');
 	document.getElementById('tab').classList.remove('hide');
 	document.getElementById('totr').innerText = total;
@@ -104,7 +104,7 @@ async function loadData(){
 		cell5.innerText = dfs[index];
   		cell6 = row.insertCell(5);
   		cell6.style.backgroundColor  = "#B4A7D6";
-		cell6.innerText = (((dfs[index])/total)*100).toFixed(2) + " %";
+		cell6.innerText = (dfs[index]/6240).toFixed(2);
 		unms.splice(index,1);
 		rss.splice(index,1);
 		rcs.splice(index,1);
