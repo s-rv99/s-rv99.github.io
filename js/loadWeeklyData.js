@@ -25,7 +25,7 @@ async function loadData(){
 				try{
 					diff = jsonObj.data[i].attributes.rice - jsonSnapshot.data[jsonObj.data[i].attributes.user].rice;
 				}catch{
-					break;
+					continue;
 				}
 				if(diff > 0){
 					row = table.insertRow(c++);
