@@ -72,7 +72,6 @@ async function loadData(){
 	cell6.innerText = (total/6240).toFixed(2);
 	document.getElementById('load').classList.add('hide');
 	document.getElementById('tab').classList.remove('hide');
-	document.getElementById('totr').innerText = total;
 	l = dfs.length;
 	newp = 0;
 	for(i=0; i < l; i++){
@@ -110,7 +109,5 @@ async function loadData(){
 		rcs.splice(index,1);
 		dfs.splice(index,1);
 	}
-	document.getElementById('newp').innerText = newp;
-	document.getElementById('totp').innerText = l;
 }
 loadData();
