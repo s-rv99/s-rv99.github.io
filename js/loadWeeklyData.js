@@ -20,7 +20,7 @@ async function loadData(){
 		jsonObj = await r.json();
 		pages = jsonObj.meta.pagination.total_pages;
 		document.getElementById('l3').innerText = p + "/" + pages;
-		for(let i = 0; i < jsonObj.meta.pagination.count; i++){
+		for(let i = 0; i <= jsonObj.meta.pagination.count; i++){
 			if(!jsonCheat.cheaters.includes(jsonObj.data[i].attributes.user)){
 				try{
 					diff = jsonObj.data[i].attributes.rice - jsonSnapshot.data[jsonObj.data[i].attributes.user].rice;
